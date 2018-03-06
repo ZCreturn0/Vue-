@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>first vue</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>{{total}}</p>
+		<btn-counter @totaladded="addtotal"></btn-counter>	
+		<btn-counter @totaladded="addtotal"></btn-counter>	
+	</div>
+
+	<script type="text/javascript">
+		Vue.component('btn-counter',{
+			template:'<button @click="addSelf">{{sum}}</button>',
+			data:function(){
+				return {
+					sum:0
+				}
+			},
+			methods:{
+				addSelf:function(){
+					this.sum++;
+					this.$emit("totaladded");
+				}
+			}
+		});
+
+		var vue = new Vue({
+			el:'#app',
+			data:function(){
+				return {
+					total:0
+				}
+			},
+			methods:{
+				addtotal:function(){			//html忽略大小写,addTotal会出错
+					this.total++;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

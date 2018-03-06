@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>second vue</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+</head>
+<body>
+	<div id="add">
+		<p v-zc="color">{{num}}</p>
+		<button @click="add">add</button>
+	</div>
+	<br><br><br><br>
+	<div id="expandTag">
+		<baidu></baidu>
+		<span id="baidu"></span>
+	</div>
+	<div id="set">
+		<p v-once>primary:{{arr}}</p>
+		<p>outer:{{arr}}</p>
+		<button onClick="outerChange()">outer change</button>
+	</div>
+	<br>
+	<zc>无效,有效时字体为红色</zc><!-- 无效,必须在vue实例中使用 -->
+	<div id="zc">
+		<zc></zc>
+	</div>
+	<br>
+	<div id="cpn">
+		<zzc></zzc>
+	</div>
+	<br>
+	<div id="propData">
+		<info who="ZC" where="China"></info>
+	</div>
+	<br>
+	<div id="propData1">
+		<info :who="who" :where="where"></info>
+	</div>
+	<br>
+	<div id="bottom">
+		<my-footer></my-footer>
+	</div>
+	<br>
+	<div id="cpnSelevt">
+		<component :is="currentCpn"></component>
+		<button @click="changeComponent">change</button>
+	</div>
+	<script type="text/javascript">
+		Vue.directive("zc",function(el,binding,vnode){				//zc:指令名称      el:带有指令的原生DOM元素       binding:指令绑定的对象       vnode:el的虚拟节点
+			el.style = "color:"+binding.value;
+		});
+		var add = new Vue({
+			el:"#add",
+			data:{
+				num:0,
+				color:"red"
+			},
+			methods:{
+				add:function(){
+					this.num++;
+				}
+			}
+		});
+
+		var baidu = Vue.extend({									//构造器
+			template:"<a :href='url' v-text='name'></a>",
+			data:function(){
+				return {
+					url:"https://www.baidu.com",
+					name:"百度"
+				};
+			}
+		});
+
+		new baidu().$mount("baidu");								//挂载到<baidu></baidu>标签
+		new baidu().$mount("#baidu");								//也可以挂载到id,class等元素上
+
+
+
+
+
+
+		var a = ["aaa","bbb","ccc"];
+		var set = new Vue({
+			el:"#set",
+			data:{
+				arr:a
+			}
+		});		
+		function outerChange(){
+			set.arr[1] = "sdasd";	//通过索引修改无效,在界面不显示,必须用Vue.set修改*当你利用索引直接设置一个项时，vue不会为我们自动更新。*当你修改数组的长度时，vue不会为我们自动更新。
+			Vue.set(set.arr,1,"sdasd");
+		}
+
+
+
+
+
+		Vue.component("zc",{				//全局注册组件,可在所有vue实例中使用
+			template:'<div style="color:red;">全局组件</div>'
+		});
+		var zc = new Vue({
+			el:"#zc",
+			data:{}
+		});
+
+
+		var cpn = new Vue({
+			el:"#cpn",
+			data:{
+
+			},
+			components:{
+				'zzc':{
+					template:'<div style="color:green;">局部组件</div>'				//单行及多行用`,单行可用'       注意:局部注册用components,全局注册用component
+				}
+			}
+		});
+
+
+		var propData = new Vue({
+			el:"#propData",
+			data:{
+
+			},
+			components:{
+				'info':{
+					template:'<div style="color:purple;"><span style="color:red;">{{who}}</span> comes from <span style="color:orange;">{{where}}</span>!</div>',
+					props:['who','where']
+				}
+			}
+		});
+
+		var propData1 = new Vue({
+			el:"#propData1",
+			data:{
+				who:'ZC',
+				where:'China'
+			},
+			components:{
+				'info':{
+					template:'<div style="color:purple;"><span style="color:red;">{{who}}</span> comes from <span style="color:orange;">{{where}}</span>!</div>',
+					props:['who','where']
+				}
+			}
+		});
+
+		var zcLink = {
+			template:'<div style="color:purple;">https://www.baidu.com</div>'
+		}
+		var zcFooter = {
+			template:'<div><span> address </span>'+'<span> tel </span>'+'<zc-link></zc-link></div>',
+			components:{"zc-link":zcLink}
+		}
+		var bottom = new Vue({
+			el:"#bottom",
+			data:{
+
+			},
+			components:{
+				myFooter:zcFooter
+			}
+		});
+
+		var componentA = {
+			template:'<div style="color:red;">AAAAAAAAA</div>'
+		}
+		var componentB = {
+			template:'<div style="color:orange;">BBBBBBBBB</div>'
+		}
+		var componentC = {
+			template:'<div style="color:green;">CCCCCCCCC</div>'
+		}
+		var cpnSelevt = new Vue({
+			el:"#cpnSelevt",
+			data:{
+				currentCpn:"componentA"
+			},
+			components:{
+				"componentA":componentA,
+				"componentB":componentB,
+				"componentC":componentC,
+			},
+			methods:{
+				changeComponent:function(){
+					switch(this.currentCpn)
+					{
+						case "componentA":this.currentCpn = "componentB";break;
+						case "componentB":this.currentCpn = "componentC";break;
+						case "componentC":this.currentCpn = "componentA";break;
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

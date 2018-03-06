@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>first vue</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>{{message}}</p>
+	</div>
+
+	<div id="app2">
+		<span v-bind:title="message">
+			aaaaaaaaaa
+		</span>
+		<p v-if="seen">1234</p>
+	</div>
+
+	<div id="app3">
+		<ul>
+			<li v-for="list in lists">{{list.text}}</li>
+		</ul>
+	</div>
+
+	<div id="app4">
+		<input type="text" v-model="message" v-on:input="reverseText">
+		<p>{{message}}</p>
+	</div>
+
+	<div id="app5">
+		<ul>
+			<item-list v-for="item in items" v-bind:item="item" v-bind:key="item.id"></item-list>
+		</ul>
+	</div>
+
+	<div id="app6">
+		<input type="checkbox" id="ckb" v-model="sc">
+		<label for="ckb">{{sc}}</label>
+	</div>
+
+	<div id="app7">
+		<input type="checkbox" id="aaa" value="aaa" v-model="mc">
+		<label for="aaa">aaa</label>
+		<input type="checkbox" id="bbb" value="bbb" v-model="mc">
+		<label for="bbb">bbb</label>
+		<input type="checkbox" id="ccc" value="ccc" v-model="mc">
+		<label for="ccc">ccc</label>
+		<br>
+		<span>mc:{{mc}}</span>
+	</div>
+
+	<div id="app8">
+		<input type="radio" id="r1" value="aaa" v-model="r">
+		<label for="r1">aaa</label>
+		<input type="radio" id="r2" value="bbb" v-model="r">
+		<label for="r2">bbb</label>
+		<br>
+		<span>r:{{r}}</span>
+	</div>
+
+	<div id="app9">
+		<select v-model="select">
+			<option disabled="disabled">请选择</option>
+			<option value="1">A</option>
+			<option value="2">B</option>
+			<option value="3">C</option>
+		</select>
+		<br>
+		<span>select:{{select}}</span>
+	</div>
+
+	<div id="sort">
+		<p v-once>{{items}}</p>
+		<ul>
+			<li v-once v-for="item in items">{{item}}</li>
+		</ul>
+		<p>{{sortedItems}}</p>
+		<ul>
+			<li v-for="item in sortedItems">{{item}}</li>
+		</ul>
+		<p v-once>{{persons}}</p>
+		<ul>
+			<li v-once v-for="person in persons">{{person}}</li>
+		</ul>
+		<p>{{sortedObject}}</p>
+		<ul>
+			<li v-for="person in sortedObject">{{person}}</li>
+		</ul>
+	</div>
+
+
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app',
+			data:{
+				message:"6666666666"
+			}
+		});
+
+		var app2 = new Vue({
+			el:"#app2",
+			data:{
+				message:"It's title!!!!",
+				seen:true
+			}
+		});
+
+		var app3 = new Vue({
+			el:"#app3",
+			data:{
+				lists:[{text:"aaa"},{text:"bbb"},{text:"ccc"}]
+			}
+		});
+		app3.lists.push({text:"ddd"});
+
+		var app4 = new Vue({
+			el:"#app4",
+			data:{
+				message:"asd"
+			},
+			methods:{
+				reverseText:function(){
+					console.log(123132)
+					this.message = this.message.split("").reverse().join("")
+				}
+			}
+		});
+
+
+		/***************************************************/
+
+		Vue.component("item-list",{
+			props:["item"],
+			template:"<li>{{item.text}}</li>"
+		});
+
+		var app5 = new Vue({
+			el:"#app5",
+			data:{
+				items:[
+					{id:1,text:"aaaa"},
+					{id:2,text:"ssss"},
+					{id:3,text:"dddd"},
+					{id:4,text:"ffff"}
+				]
+			}
+		});
+
+		/***************************************************/
+
+		var app6 = new Vue({
+			el:"#app6",
+			data:{
+				sc:true
+			}
+		});
+
+		var app7 = new Vue({
+			el:"#app7",
+			data:{
+				mc:[]
+			}
+		});
+
+		var app8 = new Vue({
+			el:"#app8",
+			data:{
+				r:''
+			}
+		});
+
+		var app9 = new Vue({
+			el:"#app9",
+			data:{
+				select:''
+			}
+		});
+
+		var sort = new Vue({
+			el:"#sort",
+			data:{
+				items : [9,4,6,7,10,56,354,85,45],
+				persons:[
+					{name:"aaa",age:12},
+					{name:"bbb",age:15},
+					{name:"ccc",age:10},
+					{name:"ddd",age:21},
+					{name:"eee",age:42},
+					{name:"fff",age:33}
+				]
+			},
+			methods:{
+				maxToMin:function(a,b){
+					return a-b;
+				},
+				objectSorted:function(arr,key){				//按key排序
+					return arr.sort(function(a,b){
+						return a[key] - b[key];
+					});
+				}
+			},
+			computed:{
+				sortedItems:function(){
+					return this.items.sort(this.maxToMin);
+				},
+				sortedObject:function(){
+					return this.objectSorted(this.persons,"age");
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>

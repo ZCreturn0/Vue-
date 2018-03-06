@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>third vue</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+</head>
+<body>
+	<header></header>
+	<br>
+	<div id="price">
+		<span :style='color' v-text="formattedPrice"></span>
+	</div>
+	<br>
+	<div id="sug">
+		温度:{{temp}}℃
+		<br>
+		建议:{{suggests[index]}}
+		<br>
+		<button @click="add">加</button><button @click="reduce">减</button>
+	</div>
+	<script type="text/javascript">
+		var header = Vue.extend({
+			template:"<div>{{greeting}} {{who}}!</div>",
+			data:function(){
+				return {
+					greeting:"Hello"
+				}
+			},
+			props:['who']
+		});	
+		new header({propsData:{who:"zc"}}).$mount("header");
+
+
+		var price = new Vue({
+			el:"#price",
+			data:{
+				price:100,
+				color:{color:'#f60'}
+			},
+			computed:{
+				formattedPrice:function(){
+					return '￥'+this.price+'元';
+				}
+			}
+		});
+
+
+
+		var sug = new Vue({
+			el:"#sug",
+			data:{
+				temp:30,
+				index:0,
+				suggests:["短袖","长衫","棉袄"]
+			},
+			methods:{
+				add:function(){
+					this.temp++;
+				},
+				reduce:function(){
+					this.temp--;
+				}
+			},
+			watch:{
+				temp:function(){
+					if(this.temp < 15)
+					{
+						this.index = 2;
+					}
+					else if(this.temp >= 15 && this.temp <= 25)
+					{
+						this.index = 1;
+					}
+					else
+					{
+						this.index = 0;
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

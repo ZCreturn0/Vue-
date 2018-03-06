@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slot</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+</head>
+<body>
+	<div id="defaultInsert">
+		<aaa><div slot="img" @click="showImg">img</div><div slot="company">company</div></aaa>
+	</div>
+	<script type="text/javascript">
+		var defaultInsert = new Vue({
+			el:"#defaultInsert",
+			data:{
+
+			},
+			methods:{
+				showImg:function(){
+					alert("sdf");
+				}
+			},
+			components:{
+				aaa:{
+					template:"<div><div>title</div>   <div>name</div>   <slot name='img'></slot>   <div>tel</div>   <div>address</div><slot name='company'></slot></div>"
+				}
+			}
+		});
+	</script>
+</body>
+</html>
