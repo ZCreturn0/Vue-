@@ -1,0 +1,2 @@
+$router  全局路由对象,类比history对象,用于路由跳转等
+$route   当前路由对象,类比window.location.href,用于获取当前路由参数等
