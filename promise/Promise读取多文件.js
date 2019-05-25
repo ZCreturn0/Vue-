@@ -25,4 +25,8 @@ getFileByPath('./files/1.txt').then((data) => {
 }).then((data) => {
     console.log('success');
     console.log(data);
+    return getFileByPath('./files/3.txt');
+}).then((data) => {
+    console.log('success');
+    console.log(data);
 });
