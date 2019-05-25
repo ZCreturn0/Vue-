@@ -18,15 +18,23 @@ function getFileByPath(filename) {
 getFileByPath('./files/1.txt').then((data) => {
     console.log('success');
     console.log(data);
-    return getFileByPath('./files/2.txt');
+    return getFileByPath('./files/3.txt');
 }, (err) => {
     console.log('fail');
     console.log(err);
-}).then((data) => {
-    console.log('success');
-    console.log(data);
     return getFileByPath('./files/3.txt');
 }).then((data) => {
     console.log('success');
     console.log(data);
+    return getFileByPath('./files/2.txt');
+}, (err) => {
+    console.log('fail');
+    console.log(err);
+    return getFileByPath('./files/2.txt');
+}).then((data) => {
+    console.log('success');
+    console.log(data);
+}, (err) => {
+    console.log('fail');
+    console.log(err);
 });
