@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="app">
-        <p v-for="item in user">{{item}}</p>
+        <p v-for="(val, key) in user">{{key}}---{{val}}</p>
     </div>
     <script>
         new Vue({
