@@ -15,7 +15,8 @@
             name:<input type="text" v-model="name" />
             <button @click="add">add</button>
             <ul>
-                <li v-for="user of users"><label><input type="checkbox"/>{{user.id}}-----{{user.name}}</label></li>
+                <!-- 没key选中后添加会出错 -->
+                <li v-for="user of users" :key="user.id"><label><input type="checkbox"/>{{user.id}}-----{{user.name}}</label></li>
             </ul>
         </div>
         <script>
