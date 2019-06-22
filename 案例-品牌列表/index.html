@@ -8,14 +8,16 @@
         <script src="../vue.js"></script>
         <style>
             table{width: 100%;}
-            th, td{text-align: left;}
-            tr{border-bottom: 3px solid #acc;}
+            th, td{text-align: left;padding: 10px;}
         </style>
     </head>
 
     <body>
         <div id="app">
-
+            名称:<input type="text" v-model="name">
+            价格:<input type="number" v-model="price">
+            <button @click="add">添加</button>
+            查询:<input type="text" v-model="query" @input="select">
             <table>
                 <tr>
                     <th>id</th>
@@ -23,7 +25,7 @@
                     <th>价格</th>
                     <th>操作</th>
                 </tr>
-                <tr v-for="item of goodsList" :key="item.id">
+                <tr v-for="item of goodsListCopy" :key="item.id">
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.price}}</td>
@@ -36,19 +38,47 @@
                 el: '#app',
                 data() {
                     return {
+                        name: '',
+                        price: '',
+                        id: 6,
+                        query: '',
                         goodsList: [
                             { id: 1, name: 'aaaa', price: 12 },
                             { id: 2, name: 'aabbb', price: 13 },
                             { id: 3, name: 'aacc', price: 15 },
                             { id: 4, name: 'bbgg', price: 10 },
                             { id: 5, name: 'bbww', price: 11 }
-                        ]
+                        ],
+                        goodsListCopy: []
                     }
+                },
+                created(){
+                    this.goodsListCopy = this.goodsList;
                 },
                 methods: {
                     deleteGood(id){
                         this.goodsList = this.goodsList.filter(function(item){
                             return item.id != id;
+                        });
+                        this.goodsListCopy = this.goodsList;
+                    },
+                    add(){
+                        if(this.name && this.price){
+                            this.goodsList.push({
+                                id: this.id++,
+                                name: this.name,
+                                price: this.price
+                            });
+                        }
+                        this.goodsListCopy = this.goodsList;
+                    },
+                    select(){
+                        var _this = this;
+                        this.goodsListCopy = this.goodsList.filter(function (item) {
+                            console.log(item.name);
+                            console.log(_this.query);
+                            console.log(item.name.indexOf(_this.query));
+                            return item.name.indexOf(_this.query) >= 0;
                         });
                     }
                 }
