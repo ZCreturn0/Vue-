@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <script src="../vue.js"></script>
+        <style>
+            table{width: 100%;}
+            th, td{text-align: left;}
+            tr{border-bottom: 3px solid #acc;}
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>名称</th>
+                    <th>价格</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="item of goodsList" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td><button @click="deleteGood(item.id)">删除</button></td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        goodsList: [
+                            { id: 1, name: 'aaaa', price: 12 },
+                            { id: 2, name: 'aabbb', price: 13 },
+                            { id: 3, name: 'aacc', price: 15 },
+                            { id: 4, name: 'bbgg', price: 10 },
+                            { id: 5, name: 'bbww', price: 11 }
+                        ]
+                    }
+                },
+                methods: {
+                    deleteGood(id){
+                        this.goodsList = this.goodsList.filter(function(item){
+                            return item.id != id;
+                        });
+                    }
+                }
+            });
+        </script>
+    </body>
+
+</html>
