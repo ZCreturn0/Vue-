@@ -11,7 +11,7 @@
 
     <body>
         <div id="app">
-            <input type="text" @keyup.go="show" v-model="msg" v-focus/>
+            <input type="text" @keyup.go="show" v-model="msg" v-focus v-color="'red'"/>
         </div>
         <script>
             Vue.config.keyCodes.go = 13;
@@ -29,6 +29,11 @@
                 // VNode更新时执行, 可执行多次
                 updated: function(){
 
+                }
+            });
+            Vue.directive('color', {
+                inserted: function(el, binding){
+                    el.style.color = binding.value;
                 }
             });
             new Vue({
