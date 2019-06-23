@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <input type="text" @keyup.go="show" v-model="msg"/>
+        </div>
+        <script>
+            Vue.config.keyCodes.go = 13;
+            new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        msg: ''
+                    }
+                },
+                methods: {
+                    show(){
+                        console.log(this.msg)
+                    }
+                }
+            });
+        </script>
+    </body>
+
+</html>
