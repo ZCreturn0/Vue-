@@ -15,8 +15,10 @@
     <body>
         <div id="app">
             {{msg | filterFormat}}
+            {{msg | innerFilter('***')}}
         </div>
         <script>
+            // 全局过滤器
             Vue.filter('filterFormat', function(data){
                 return `"${data}"`;
             });
@@ -31,6 +33,12 @@
                 },
                 methods: {
                     
+                },
+                // 局部过滤器
+                filters: {
+                    innerFilter(data, charactor="\""){
+                        return charactor + data + charactor;
+                    }
                 }
             });
         </script>
