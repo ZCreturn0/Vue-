@@ -11,10 +11,26 @@
 
     <body>
         <div id="app">
-            <input type="text" @keyup.go="show" v-model="msg"/>
+            <input type="text" @keyup.go="show" v-model="msg" v-focus/>
         </div>
         <script>
             Vue.config.keyCodes.go = 13;
+            // 指令名不需要加 v- 前缀, 调用时需添加上
+            Vue.directive('focus', {
+                // 指令添加到元素上时执行, 只执行一次
+                // 未添加到dom中,无法触发focus()
+                bind: function(el){
+                    
+                },
+                // 元素插入到dom中时执行, 只执行一次
+                inserted: function(el){
+                    el.focus();
+                },
+                // VNode更新时执行, 可执行多次
+                updated: function(){
+
+                }
+            });
             new Vue({
                 el: '#app',
                 data() {
