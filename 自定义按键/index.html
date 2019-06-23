@@ -12,6 +12,7 @@
     <body>
         <div id="app">
             <input type="text" @keyup.go="show" v-model="msg" v-focus v-color="'red'"/>
+            <p v-fontweight="'bold'">{{msg}}</p>
         </div>
         <script>
             Vue.config.keyCodes.go = 13;
@@ -46,6 +47,14 @@
                 methods: {
                     show(){
                         console.log(this.msg)
+                    }
+                },
+                directives: {
+                    // 指令名小写
+                    'fontweight': {
+                        bind: function(el, binding){
+                            el.style.fontWeight = binding.value;
+                        }
                     }
                 }
             });
