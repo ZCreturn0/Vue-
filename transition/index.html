@@ -6,11 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="../vue.js"></script>
+    <style>
+        /* 状态 */
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateX(80px);
+        }
+        /* 过程 */
+        .v-enter-active,
+        .v-leave-active{
+            transition: all .5s;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <button @click="show = !show">click</button>
-        <h3 v-show="show">safsdfdsf</h3>
+        <transition>
+            <h3 v-show="show">safsdfdsf</h3>
+        </transition>
     </div>
     <script>
         new Vue({
