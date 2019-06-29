@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="./animate.css"/>
     <script src="../vue.js"></script>
     <style>
         /* 状态 */
@@ -40,6 +41,11 @@
         <transition name="my">
             <h3 v-show="show2">safsdfdsf</h3>
         </transition>
+        <hr>
+        <button @click="show3 = !show3">click</button>
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="500">
+            <h3 v-show="show3" class="animated">safsdfdsf</h3>
+        </transition>
     </div>
     <script>
         new Vue({
@@ -47,7 +53,8 @@
             data() {
                 return {
                     show: false,
-                    show2: false
+                    show2: false,
+                    show3: false
                 }
             }
         });
