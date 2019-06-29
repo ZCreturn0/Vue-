@@ -18,6 +18,15 @@
         .v-leave-active{
             transition: all .5s;
         }
+        .my-enter,
+        .my-leave-to{
+            opacity: 0;
+            transform: translateY(80px);
+        }
+        .my-enter-active,
+        .my-leave-active{
+            transition: all .5s;
+        }
     </style>
 </head>
 <body>
@@ -26,13 +35,19 @@
         <transition>
             <h3 v-show="show">safsdfdsf</h3>
         </transition>
+        <hr>
+        <button @click="show2 = !show2">click</button>
+        <transition name="my">
+            <h3 v-show="show2">safsdfdsf</h3>
+        </transition>
     </div>
     <script>
         new Vue({
             el: '#app',
             data() {
                 return {
-                    show: false
+                    show: false,
+                    show2: false
                 }
             }
         });
