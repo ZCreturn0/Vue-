@@ -43,7 +43,7 @@
         </transition>
         <hr>
         <button @click="show3 = !show3">click</button>
-        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="500">
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{ enter: 200, leave: 500 }">
             <h3 v-show="show3" class="animated">safsdfdsf</h3>
         </transition>
     </div>
