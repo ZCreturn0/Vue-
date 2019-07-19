@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var DataObj = function(){};
+        DataObj.prototype.data = {
+            name: 'aaa',
+            value: 111
+        }
+        var obj1 = new DataObj();
+        var obj2 = new DataObj();
+        console.log(obj1.data.name);
+        console.log(obj2.data.name);
+        console.log('------------------------');
+        obj1.data.name = 'ccc';
+        console.log(obj1.data.name);
+        console.log(obj2.data.name);
+
+        console.log('+++++++++++++++++++++++');
+
+        var FuncObj = function(){
+            this.data = this.data();
+        };
+        FuncObj.prototype.data = function(){
+            return {
+                name: 'aaa',
+                value: 111
+            }
+        }
+        var obj3 = new FuncObj();
+        var obj4 = new FuncObj();
+        console.log(obj3.data.name);
+        console.log(obj4.data.name);
+        console.log('------------------------');
+        obj3.data.name = 'ccc';
+        console.log(obj3.data.name);
+        console.log(obj4.data.name);
+    </script>
+</body>
+</html>
