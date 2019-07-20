@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="app">
-        <comp v-bind:parentmsg="msg"></comp>
+        <comp :parentmsg="msg"></comp>
     </div>
     <script>
         new Vue({
@@ -22,7 +22,7 @@
             components: {
                 comp: {
                     template: "<h1>aaaaaa ----- {{parentmsg}}</h1>",
-                    // props 里属性不能有大写字母
+                    // props 里属性不能有大写字母   里面的属性是只读的
                     props: ['parentmsg']
                 }
             }
